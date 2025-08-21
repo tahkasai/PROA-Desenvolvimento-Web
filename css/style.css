@@ -1,0 +1,69 @@
+:root{
+    --cor-primaria: rgb(227, 162, 106);
+    --cor-secundaria: rgb(104, 71, 4);
+}
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: black;
+}
+/*Elementos padrões*/
+body{
+    font-family: "Poppins", sans-serif;
+    background-color: rgb(255, 249, 242);
+}
+h1,h2,h3{
+    font-weight: 600;
+    margin: 1.5em/*cima*/ 0/*direita*/ 0/*baixo*/ 0/*esquerda*/;
+}
+/*Cabeçario*/
+.logo{
+    font-size: 1.8em;
+    font-weight: 600;
+}
+nav{
+    padding: 1.5em 3em;
+    justify-content:space-between;
+    display: flex;
+    align-items: center;
+}
+nav ul{
+    font-weight: 500;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+}
+nav li{
+    margin: 0 1em;
+}
+nav ul a{
+    position: relative; /* Permite posicionar o ::before em relação ao link */
+    display: inline-block;/* Link pode ter largura/altura e ficar em linha */
+}
+nav ul a::before{
+    content: '';/* Cria o pseudo-elemento (linha) */
+    position: absolute; /* Posiciona em relação ao <a> */
+    width: 100%;
+    height: 2px;
+    background-color: var(--cor-secundaria);
+    bottom: -5px;/* Fica abaixo do texto */
+    transform: scaleX(0);/* Linha começa "escondida" */
+    transform-origin: left;/* Animação parte da esquerda */
+    transition: transform 0.4s;
+}
+nav ul a:hover::before{
+    transform: scaleX(1);/* Linha aparece ao passar o mouse */
+}
+/*Referencia: https://prismic-io.translate.goog/blog/css-hover-effects?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=pt&_x_tr_pto=tc&_x_tr_hist=true*/
+.descricaoMateria{
+    font-size: 0.85em;
+
+}
+article{
+    width: 60%;
+    margin: 0 auto;
+}
+article li{
+    margin: 0 1em;
+}
