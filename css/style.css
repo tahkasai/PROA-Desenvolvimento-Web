@@ -11,11 +11,11 @@
 /*Elementos padrões*/
 body{
     font-family: "Poppins", sans-serif;
-    background-color: rgb(255, 249, 242);
+    background-color: rgb(255, 252, 249);
 }
 h1,h2,h3{
     font-weight: 600;
-    margin: 1.5em/*cima*/ 0/*direita*/ 0/*baixo*/ 0/*esquerda*/;
+    margin: 1em/*cima*/ 0/*direita*/ 0/*baixo*/ 0/*esquerda*/;
 }
 /*Cabeçario*/
 .logo{
@@ -56,14 +56,29 @@ nav ul a:hover::before{
     transform: scaleX(1);/* Linha aparece ao passar o mouse */
 }
 /*Referencia: https://prismic-io.translate.goog/blog/css-hover-effects?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=pt&_x_tr_pto=tc&_x_tr_hist=true*/
-.descricaoMateria{
-    font-size: 0.85em;
-
+.descricaoMateria p{
+    font-size: 0.80em;
+    margin-bottom: 2em;
+}
+.autor{
+    font-weight: 500;
+}
+.autor a{
+    font-weight: 600;
+    color: var(--cor-secundaria);
 }
 article{
     width: 60%;
     margin: 0 auto;
 }
-article li{
+article li, article ul{
     margin: 0 1em;
+}
+article img{
+    margin-top: 3em;
+    width: 100%;
+    border-radius: 15px;
+}
+article p{
+    margin: 2em 0;
 }
