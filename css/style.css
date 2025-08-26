@@ -27,6 +27,7 @@ nav{
     justify-content:space-between;
     display: flex;
     align-items: center;
+    background-color: rgb(252, 241, 226);
 }
 nav ul{
     font-weight: 500;
@@ -37,11 +38,11 @@ nav ul{
 nav li{
     margin: 0 1em;
 }
-nav ul a{
+nav li a{
     position: relative; /* Permite posicionar o ::before em relação ao link */
     display: inline-block;/* Link pode ter largura/altura e ficar em linha */
 }
-nav ul a::before{
+nav li a::before{
     content: '';/* Cria o pseudo-elemento (linha) */
     position: absolute; /* Posiciona em relação ao <a> */
     width: 100%;
@@ -52,13 +53,19 @@ nav ul a::before{
     transform-origin: left;/* Animação parte da esquerda */
     transition: transform 0.4s;
 }
-nav ul a:hover::before{
+nav li a:hover::before{
     transform: scaleX(1);/* Linha aparece ao passar o mouse */
 }
 /*Referencia: https://prismic-io.translate.goog/blog/css-hover-effects?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=pt&_x_tr_pto=tc&_x_tr_hist=true*/
 .descricaoMateria p{
     font-size: 0.80em;
     margin-bottom: 2em;
+}
+.horario p{
+    margin-top: 3em;
+    margin-bottom: 0;
+    font-weight: 400;
+    font-size: small;
 }
 .autor{
     font-weight: 500;
@@ -68,17 +75,22 @@ nav ul a:hover::before{
     color: var(--cor-secundaria);
 }
 article{
-    width: 60%;
+    width: 70%;
     margin: 0 auto;
 }
-article li, article ul{
-    margin: 0 1em;
+article ul{
+    margin: 1em 1em;
 }
 article img{
-    margin-top: 3em;
+    margin-top: 2em;
     width: 100%;
     border-radius: 15px;
 }
 article p{
     margin: 2em 0;
+}
+/*Footer*/
+footer{
+    padding: 1.5em 3em;
+    background-color: brown;
 }
