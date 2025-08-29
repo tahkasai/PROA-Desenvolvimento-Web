@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exercício 4</title>
+</head>
+<body>
+    <script>
+        //Considerando a figura abaixo, escreva um programa para cada forma que calcule e exiba em tela cada uma de suas respectivas áreas. O usuário irá informar os valores de cada variável.
+
+        var forma = prompt("Escolha uma forma figura\n\n1-Retangulo\n2-Quadrado\n3-Losango\n4-Trapezio\n5-paralelograma\n6-triangulo\n7-circulo");
+        var resultado = 0;
+
+        if(forma == 1){
+            var base = parseFloat(prompt("Informe a base"));
+            var altura = parseFloat(prompt("Informe a altura "));
+            resultado = base * altura;
+            alert("O resultado é: "+resultado);
+
+        }else if (forma == 2){
+            var lado = parseFloat(prompt("Informe o lado"));
+            resultado = lado*lado;
+            alert("O resultado é: "+resultado);
+
+        } else if(forma == 3){
+            var diagonalMaior = parseFloat(prompt("Informe a diagonal Maior: "));
+            var diagonalMenor = parseFloat(prompt("Informe a diagonal Menor"));
+            resultado = (diagonalMaior * diagonalMenor) / 2;
+            alert("O resultado é: "+resultado);
+
+        } else if (forma == 4){
+            var baseMaior = parseFloat(prompt("informe a base maior"));
+            var baseMenor = parseFloat(prompt("informe a base menor"));
+            var h = parseFloat(prompt("informe a altura"));
+            resultado = ((baseMaior +  baseMenor) * h) / 2;
+            alert("O resultado é: "+resultado);
+
+        }else if (forma == 5){
+            var baseP = parseFloat(prompt("Informe a base"));
+            var alturaP = parseFloat(prompt("Informe a altura"));
+            resultado = baseP * alturaP;
+            alert("O resultado é: "+resultado);
+
+        } else if (forma == 6){
+            var baseT = parseFloat(prompt("Informe a base"));
+            var alturaT = parseFloat(prompt("Informe a altura"));
+            resultado = (baseT * alturaT)/2;
+            alert("O resultado é: "+resultado);
+
+        } else if (forma == 6){
+            var raio = parseFloat(prompt("Informe o Raio"));
+            resultado = 3,14 * (raio*raio);
+            alert("O resultado é: "+resultado);
+
+        } else {
+            alert("Número incorreto");
+
+        }
+
+</script>
+</body>
+</html>
