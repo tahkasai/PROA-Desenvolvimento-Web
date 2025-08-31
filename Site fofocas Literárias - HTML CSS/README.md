@@ -7,9 +7,7 @@
 <ul>
     <li>HTML</li>
     <li>CSS</li>
-    <li>JavaScript (apenas para funcionalidade de navegação — como o botão "voltar")</li>
 </ul>
-<p>🔍 Obs.: A proposta da atividade é desenvolver e aprimorar conhecimentos em linguagens de marcação e estilização, com foco em HTML e CSS.</p>
 
 
 
