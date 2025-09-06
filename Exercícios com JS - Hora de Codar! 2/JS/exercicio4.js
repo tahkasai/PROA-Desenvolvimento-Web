@@ -29,3 +29,13 @@ while(true){
 
 var soma = maior + meio;
 alert(soma);
+
+// melhor forma de resolver
+// var x = parseInt(prompt("Digite um numero: "));
+// var y = parseInt(prompt("Digite um numero: "));
+// var z = parseInt(prompt("Digite um numero: "));
+ 
+// var numbers = [x, y, z];
+// var soma = numbers.sort((a, b) => a - b)[1] + numbers.sort((a, b) => a - b)[2];
+       
+// alert(soma);
