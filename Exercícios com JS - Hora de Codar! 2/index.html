@@ -7,36 +7,50 @@
 </head>
 <body>
     <script>
+        inicio();
         function inicio(){
             let op = parseInt(prompt("Digite um exercício [1 a 10] para executa-lo ou [0] para sair"));
             
             switch (op){
                 case 1:
                     exercicio1();
+                    break;
                 case 2:
                     exercicio2();
+                    break;
                 case 3:
                     exercicio3();
+                    break;
                 case 4:
                     exercicio4();
+                    break;
                 case 5:
                     exercicio5();
+                    break;
                 case 6:
                     exercicio6();
+                    break;
                 case 7:
                     exercicio7();
+                    break;
                 case 8:
                     exercicio8();
+                    break;
                 case 9:
                     exercicio9();
+                    break;
                 case 10:
                     exercicio10();
+                    break;
                 case 11:
                     exercicio11();
+                    break;
                 case 0:
                     sair();
+                    break;
                 default:
                     erro();
+                    break;
             }
 
         }
@@ -121,7 +135,7 @@
             }
 
             let soma = maior + meio;
-            alert(soma); 
+            alert("A soma do maior e meio ("+maior+" e "+meio+") valor é "+soma); 
             inicio();
         }
         
@@ -222,6 +236,7 @@
         }
 
         function exercicio11(){
+           
             function adicao (x,y){
                 return x+y;
             }
@@ -235,11 +250,11 @@
                 return x/y;
             }
 
-            let valor1,valor2 = 0;
+            var valor1,valor2 = 0;
 
             valor1 = parseFloat(prompt("Digite do 1° valor"));
-            valor1 = parseFloat(prompt("Digite do 2° valor"));
-            let op = parseInt(prompt("Digite a operação\n[1] Adição\n[2] Subtração\n[3] Multiplicação\n[4] Divisão"));
+            valor2 = parseFloat(prompt("Digite do 2° valor"));
+            var op = parseInt(prompt("Digite a operação\n[1] Adição\n[2] Subtração\n[3] Multiplicação\n[4] Divisão"));
 
             switch (op){
                 case 1: 
@@ -260,22 +275,21 @@
             }
             inicio();
         }
-
-        function sair(){
-            let sair = confirm("Deseja sair?");
-            if(confirm){
-                window.close();
-            }else{
-                inicio();
-            }
-        }
-    
+        
         function erro(){
             alert("Informe um valor de [0 a 11]");
             inicio();
         }
 
-        inicio();
+        function sair(){
+            let sair = confirm("Deseja sair?");
+            if(sair){
+                window.close();
+            }else{
+                inicio();
+            }
+        }
+       
     </script>
 </body>
 </html>
