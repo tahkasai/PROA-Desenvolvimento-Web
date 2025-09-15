@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hora de Codar 3: De volta ao Código</title>
+</head>
+<body>
+    <script>
+        function inicio(){
+            var op = parseInt(prompt("Escolha um número de [1 a 11].\nCaso deseje sair, digite [0]"));
+
+            switch (op){
+                default:
+                    erro();
+                    break;
+                case 0:
+                    sair();
+                    break;
+                case 1:
+                    ex1();
+                    break;
+                case 2:
+                    ex2();
+                    break;
+                case 3:
+                    ex3();
+                    break;
+                case 4:
+                    ex4();
+                    break;
+                case 5:
+                    ex5();
+                    break;
+                case 6:
+                    ex6();
+                    break;
+                case 7:
+                    ex7();
+                    break;
+                case 8:
+                    ex8();
+                    break;
+                case 9:
+                    ex9();
+                    break;
+                case 10:
+                    ex10();
+                    break;
+                case 11:
+                    ex11();
+                    break;
+            }
+        }
+
+        function ex1(){
+            let texto="";
+            for(let i=30; i>=0;i--){
+                if(i==0){
+                    texto+=i+"... EXPLOSÃO BUMM";
+                }else{
+                    texto+=i+"..";
+                }
+            };
+            alert(texto);
+            inicio();
+        }
+
+        function ex2(){
+            let valor1 = parseFloat(prompt("Insira o primeiro número"));
+            let valor2;
+            do{
+                valor2 = parseFloat(prompt("Insira o segundo número"));
+                if(valor2 <=0){
+                    alert("Valor incorreto! Tente novamente.");
+                }
+            }while(valor2 <= 0);
+            let divisao = valor1/valor2;
+            alert("O resultado da divisão é: "+divisao);
+            inicio();
+        }
+        
+        function ex3(){
+            let mensagem = "";
+            for(let i=10;i>=1;i--){
+                if (i!=1){
+                    mensagem += i+", ";
+                } else{
+                    mensagem += "e "+i+".";
+                }
+            }
+            alert(mensagem);
+            inicio();
+        }
+
+        function ex4(){
+            let soma = 0;
+            let num = 0;
+
+            for (let i=15; i<=100;i++){
+                soma += i;
+                num ++;
+            }
+            let media = soma/num;
+            alert("A média aritmetica dos números de 15 a 100 é: "+media);
+            inicio();
+        }
+
+        function ex5(){
+            let valor1 = parseInt(prompt("Digite o primeiro número"));
+            let valor2 = parseInt(prompt("Digite o segundo número"));
+
+            let mediaDois = (valor1+valor2)/2;
+            let mediaTodos = 0;
+            let num = 0;
+
+            for (let i = valor1; i<=valor2;i++){
+                mediaTodos+=i;
+                num++;
+            }
+            mediaTodos = mediaTodos/num;
+
+            alert("A média aritmética de "+valor1+" e "+valor2+" é: "+mediaDois+"\nA média de todos entre eles é: "+mediaTodos);
+            inicio();
+        }
+
+        function ex6(){
+            let resposta = "";
+
+            do{
+                let valor1 = parseFloat(prompt("Digite a primeira nota "));
+                let valor2 = parseFloat(prompt("Digite a segunda nota "));
+
+                let nota = (valor1+valor2)/2;
+
+                if(nota >=9.5){
+                    alert("Aluno provado com "+nota);
+                }else{
+                    alert("Aluno reprovado com "+nota);
+                }
+
+                resposta = prompt("Deseja calcular outra nota? [s/n]")
+            }while(resposta.toLocaleLowerCase()=="s");
+            inicio();
+        }
+
+        function ex7(){
+            let num = 0;
+            let media = 0;
+            let valor = 1;
+
+            while(valor <= 6){
+
+                num = parseFloat(prompt("Digite o "+(valor)+"° número"));
+                if(num >10 | num<0){
+                    alert("número invalido! tente novamente.");
+                }else{
+                    media += num;
+                    valor ++;
+                }
+            }
+            media /= 6;
+            alert("A média é: "+media);
+            inicio();
+        }
+
+        function ex8(){
+            let valor = parseInt(prompt("Digite um valor"));
+            let mensagem = "";
+
+            for(let i=1; i<=valor; i++){
+                if(i==valor){
+                    mensagem += i+".";
+                } else{
+                    mensagem += i+", ";
+                }
+            }
+            alert(mensagem);
+            inicio();
+        }
+
+        function ex9(){
+            let mensagem = "";
+            for (let i = 101; i<=110;i++){
+                mensagem += i+" ";
+            }
+            alert(mensagem);
+            inicio();
+        }
+
+        function ex10(){
+            let dentro = 0;
+            let fora = 0;
+
+            for(let i = 1; i <= 10; i++){
+                let valor = parseInt(prompt("Digite o "+i+"° valor"));
+                if (valor>=24 | valor<=42){
+                    dentro ++;
+                } else{
+                    fora++;
+                }
+            }
+
+            alert("Quantidade de números fora: "+fora+"\nQuantidade de números dentro: "+dentro);
+            inicio();
+        }
+        
+        function ex11(){
+            let n = parseInt(prompt("Digite até que número deseja calcular"));
+
+            for(let i=1; i<=n;i++){
+                let mensagem = "";
+                for(let j=1; j<=10;j++){
+                    console.log(i+"x"+j+"="+(i*j));
+                    mensagem += i+"x"+j+"="+(i*j)+"\n";
+                }
+                alert(mensagem);
+            }
+            inicio();
+        }
+
+        function erro(){
+            alert("Digite um número válido");
+            inicio();
+        }
+
+        function sair(){
+            let sair = confirm("Deseja realmente sair?");
+            if(sair){
+                window.close;
+            }else{
+                inicio();
+            }
+        }
+
+        inicio();
+    </script>
+</body>
+</html>
