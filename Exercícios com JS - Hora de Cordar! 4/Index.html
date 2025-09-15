@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+</head>
+<body>
+    <script>
+        function inicio(){
+            let op = parseInt(prompt("Digite um número de [1 a 3]\nSe quiser sair, basta digitar [0]"))
+            switch (op){
+                case 0:
+                    sair();
+                    break;
+                case 1:
+                    ex1();
+                    break;
+                case 2:
+                    ex2();
+                    break;
+                case 3:
+                    ex3();
+                    break;
+                default:
+                    erro();
+                    break;
+            }
+        }
+
+        function ex1(){
+            let alunos = [];
+            let i = 0;
+            while(true){
+                let aluno = prompt("Digite o nome do aluno");
+                if(aluno.toUpperCase() == "PARE"){
+                    break;
+                } else{
+                    alunos.push(aluno);
+                }
+            }
+            alert(alunos.length==0?"Nenhum aluno cadastrado":"Alunos cadastrados: "+alunos);
+            inicio();
+        }
+
+        function ex2(){
+            let planetas = ["terra", "marte", "plutão", "vênus", "júpiter", "saturno"];
+            let planeta = prompt("Digite um planeta");
+            var tem;
+
+            for(let i=0; i<planetas.length;i++){
+                tem = planetas[i] == planeta.toLowerCase();
+                if(tem == true){
+                    break;
+                }
+            }
+            alert(tem==true?planeta+" é um planeta":"Não existe esse planeta");
+        }
+
+        function erro(){
+            alert("Valor incorreto! Informe um número de [0 a 1]");
+            inicio();
+        }
+
+        function sair(){
+            let sair = confirm("Deseja realmente sair?");
+            if(sair){
+                window.close();
+            }else{
+                inicio();
+            }
+        }
+
+        inicio();
+    </script>
+</body>
+</html>
