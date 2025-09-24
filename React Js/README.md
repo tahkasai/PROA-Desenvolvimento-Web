@@ -1,4 +1,5 @@
 # Projetos com react js
+> verificar e está instalado ``node -v``
 baixar o NodeJS: https://nodejs.org/pt
 
 No prompt de comando da sua pasta, siga os seguintes passos:
@@ -7,7 +8,7 @@ No prompt de comando da sua pasta, siga os seguintes passos:
 > npm (node package manager) 
 > create (criar)
 > vite@latest (versão mais recente do vite)
-> -- template react *usa o modelo react (opcional))
+> -- template react *usa o modelo react (opcional)
 
 2. Criar o arquivo: `npm create vite@latest nomePasta --template react`.
 3. Entra na pasta do projeto: `cd exemplo`
