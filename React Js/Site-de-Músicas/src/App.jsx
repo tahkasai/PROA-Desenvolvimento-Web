@@ -1,54 +1,44 @@
 import './App.css'
 import Card from './Card'
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { IoPlay } from "react-icons/io5";
+import { FaPause } from "react-icons/fa6";
 
 export default function App() {
-  // Esse estado manipula qual som está ativo no momento
   const [cardStates, setCardStates] = useState({
     rain: false,
     wind: false,
     forest: false
   });
 
-  var [titulo, setTitulo] = useState("Sons da Vida!");
-
-  // Função para alternar o estado do card clicado
-  const toggleCardState = (cardType) => {
-    
-    setCardStates(previous => ({ // previous é o estado anterior de todos os cards
-      ...previous, // Mantém os estados dos outros cards
-      [cardType]: !previous[cardType] // Alterna o estado do card clicado
-      // se rain for true, vira false
-      // se rain for false, vira true
-    }));
+  const audioRefs = {
+    rain: useRef(new Audio('/chuva.mp3')),
+    wind: useRef(new Audio('/vento.mp3')),
+    forest: useRef(new Audio('/floresta.mp3'))
   };
 
-  const playSound = (soundType) => {
+  const toggleCardState = (cardType) => {
+    setCardStates(prev => {
+      const isPlaying = prev[cardType];
 
-    const audio = new Audio();
+      if (isPlaying) {
+        audioRefs[cardType].current.pause();
+        audioRefs[cardType].current.currentTime = 0;
+      } else {
+        audioRefs[cardType].current.play();
+      }
 
-    switch (soundType) {
-      case 'rain':
-        // Using a nature sounds API or local file
-        console.log('Tocar som de chuva...');
-        audio.src = '/Chuva.mp3';
-        audio.play();
-        break;
-      case 'wind':
-        audio.src = '/vento.mp3';
-        audio.play();
-        break;
-      case 'forest':
-        audio.src = '/floresta.mp3';
-        audio.play();
-        break;
-    }
+      return {
+        ...prev,
+        [cardType]: !isPlaying
+      };
+    });
   };
 
   return (
     <>
       <div className="informacao">
-        <h1>Ruído Branco</h1>
+        <h1>Sons da Natureza</h1>
         <p>Relaxe e concentre-se nos sons da natureza</p>
       </div>
       <div className="cards">
@@ -58,11 +48,8 @@ export default function App() {
           tempo="03:03" 
           img="/vento.jpg" 
           altImg="imagem de dois coqueiros sendo atingidos pelo vento"
-          onClick={() => {
-            playSound('wind');
-            toggleCardState('wind');
-            setTitulo("Som de Vento");
-          }}
+          icone={cardStates.wind ? <FaPause /> : <IoPlay />}
+          onClick={() => toggleCardState('wind')}
         />
 
         <Card 
@@ -71,11 +58,8 @@ export default function App() {
           tempo="04:56" 
           img="/chuva.png" 
           altImg="Plantinha sendo regada pela chuva"
-          onClick={() => {
-            playSound('rain');
-            toggleCardState('rain');
-            setTitulo("Som de Chuva");
-          }}
+          icone={cardStates.rain ? <FaPause /> : <IoPlay />}
+          onClick={() => toggleCardState('rain')}
         />
 
         <Card 
@@ -84,14 +68,10 @@ export default function App() {
           tempo="02:45" 
           img="/floresta.jpg" 
           altImg="floresta com um corrego no meio"
-          onClick={() => {
-            playSound('forest');
-            toggleCardState('forest');
-            setTitulo("Som de Floresta");
-          }}
+          icone={cardStates.forest ? <FaPause /> : <IoPlay />}
+          onClick={() => toggleCardState('forest')}
         />
       </div>
     </>
   )
 }
-

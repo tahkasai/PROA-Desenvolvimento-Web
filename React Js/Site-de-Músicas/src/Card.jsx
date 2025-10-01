@@ -1,7 +1,7 @@
-export default function Card(props, onClick){
+export default function Card(props){
     return(
         <>
-        <div className='card' onClick={onClick}>
+        <div className='card'>
             <div className="card-image">
                 <img src={props.img} alt={props.altImg} />
             </div>
@@ -11,7 +11,7 @@ export default function Card(props, onClick){
             </p>
             <p className="card-buttons">
                 <p className="card-time">{props.tempo}</p>
-                <button className="card-play" >▶</button>
+                <button className="card-play" onClick={props.onClick}>{props.icone}</button>
             </p>
         </div>
         </>
