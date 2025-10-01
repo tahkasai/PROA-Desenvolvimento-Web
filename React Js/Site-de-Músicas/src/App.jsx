@@ -45,7 +45,7 @@ export default function App() {
         <Card 
           titulo="Som de Vento" 
           descricao="Um sopro livre, ora leve e sussurrante, ora forte e imponente." 
-          tempo="03:03" 
+          tempo="00:30" 
           img="/vento.jpg" 
           altImg="imagem de dois coqueiros sendo atingidos pelo vento"
           icone={cardStates.wind ? <FaPause /> : <IoPlay />}
@@ -55,7 +55,7 @@ export default function App() {
         <Card 
           titulo="Som de Chuva" 
           descricao="Um som suave e constante, como pequenas batidas que trazem calma e aconchego." 
-          tempo="04:56" 
+          tempo="01:56" 
           img="/chuva.png" 
           altImg="Plantinha sendo regada pela chuva"
           icone={cardStates.rain ? <FaPause /> : <IoPlay />}
@@ -65,7 +65,7 @@ export default function App() {
         <Card 
           titulo="Som de Floresta" 
           descricao="Uma mistura de cantos de pássaros, farfalhar de folhas e vida pulsando em harmonia." 
-          tempo="02:45" 
+          tempo="00:30" 
           img="/floresta.jpg" 
           altImg="floresta com um corrego no meio"
           icone={cardStates.forest ? <FaPause /> : <IoPlay />}
