@@ -19,4 +19,4 @@ Depois disso, irá aparecer isso:
 
 <img width="267" height="184" alt="Captura de tela 2025-09-19 153546" src="https://github.com/user-attachments/assets/ece02326-8045-4d35-97e3-d132db80df0f" />
 
-
+6. `npm run build` é usado em projetos JavaScript para gerar uma versão otimizada e pronta para produção do seu aplicativo
