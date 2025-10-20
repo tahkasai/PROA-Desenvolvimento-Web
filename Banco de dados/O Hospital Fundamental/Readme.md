@@ -1,4 +1,4 @@
-# Mãos a Obra
+# O Hospital Fundamental
 Analise a seguinte descrição e extraia dela os requisitos para o banco de dados:
 O hospital necessita de um sistema para sua área clínica que ajude a controlar consultas realizadas. Os médicos podem ser generalistas, especialistas ou residentes e têm seus dados pessoais cadastrados em planilhas digitais. Cada médico pode ter uma ou mais especialidades, que podem ser pediatria, clínica geral, gastroenterologia e dermatologia. Alguns registros antigos ainda estão em formulário de papel, mas será necessário incluir esses dados no novo sistema.
 
@@ -10,3 +10,6 @@ Deseja-se ainda informatizar a receita do médico, de maneira que, no encerramen
 
 ## Resolução DER
 <img src="assets/image/image.png" alt="diagrama entidade relacionamento"/>
+
+## Código em MySQL
+<a href='hospital.sql'>🔗hospital.sql</a>
