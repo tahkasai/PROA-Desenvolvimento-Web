@@ -35,7 +35,7 @@ create table Medico (
     telefone varchar(20),
     email varchar(100) not null,
     especializacao int not null,
-    foreign key (especializacao) references especializacao(id)
+    foreign key (especializacao) references especializacao(id) on delete cascade on update cascade
 );
 insert into medico(crm,nome,cpf,dataNasc,email,especializacao) 
 values ("CRM/SP 123456","Tainá Kasai Serafim","430.000.000-00",'2025-09-26',"tainakasai01@gmail.com",1);
