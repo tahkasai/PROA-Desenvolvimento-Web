@@ -173,7 +173,7 @@ create table if not exists quarto(
     numero int not null,
     tipo int,
     
-    foreign key (tipo) references tipo_quarto(id)
+    foreign key (tipo) references tipo_quarto(id) on delete cascade on update cascade
 );
 
 # ----------- INTERNAÇÃO ----------- 
@@ -187,9 +187,9 @@ create table if not exists internacao(
     paciente int not null,
     medico int not null,
     
-    foreign key (quarto) references quarto(id),
-    foreign key (paciente) references paciente(id),
-    foreign key (medico) references medico(id)
+    foreign key (quarto) references quarto(id) on delete cascade on update cascade,
+    foreign key (paciente) references paciente(id) on delete cascade on update cascade,
+    foreign key (medico) references medico(id) on delete cascade on update cascade
 );
 
 # ----------- ENFERMEIRO ----------- 
@@ -205,6 +205,6 @@ create table internacaoEnfermeiro(
 	id_internacao int not null,
     id_enfermeiro int not null,
     
-    foreign key (id_internacao) references internacao(id),
-    foreign key (id_enfermeiro) references enfermeiro(id)    
+    foreign key (id_internacao) references internacao(id) on delete cascade on update cascade,
+    foreign key (id_enfermeiro) references enfermeiro(id) on delete cascade on update cascade    
 );
