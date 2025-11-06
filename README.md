@@ -13,6 +13,8 @@ As atividades estão organizadas em pastas, de acordo com os módulos e conteúd
 - 📂 **[Lógica de Programação]** → Exercícios com lógica de programação e introdução ao JavaScript.  
 - 📂 **[HTML e CSS]** → Atividade práticas HTML e CSS.  
 - 📂 **[React JS]** → Projetos utilizando o React Js.
+- 📂 **[Banco de Dados]** → Atividades sobre banco de dados.
+- 📂 **[Java]** → Exercícios em Java.
 
 *Mais repositórios serão adicionados com o andamento do curso*
 
