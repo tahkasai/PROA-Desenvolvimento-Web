@@ -2,24 +2,25 @@ DROP DATABASE IF EXISTS Hospital;
 CREATE DATABASE Hospital;
 USE Hospital;
 
--- ------------ FORMAÇÃO ------------
+# --------------------------------------------------------------------------------------
+# ATIVIDADE 01
+# --------------------------------------------------------------------------------------
+
+# ------------ FORMAÇÃO ------------
 CREATE TABLE IF NOT EXISTS formacao (
 	id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
     nome VARCHAR(100) NOT NULL
 );
-
 INSERT INTO formacao(nome)
 VALUES ("generalista"), 
        ("especialista"), 
        ("residente");
 
--- ------------ ESPECIALIZAÇÃO ------------
+# ------------ ESPECIALIZAÇÃO ------------
 CREATE TABLE IF NOT EXISTS especializacao(
 	id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
     nome VARCHAR(150) NOT NULL
 );
-
--- DADOS ESSENCIAIS - 7 especialidades
 INSERT INTO especializacao(nome)
 VALUES ("pediatria"), 
        ("clínica geral"),
@@ -29,7 +30,7 @@ VALUES ("pediatria"),
        ("ortopedia"),
        ("neurologia");
 
--- ------------ MÉDICO ------------
+# ------------ MÉDICO ------------
 CREATE TABLE IF NOT EXISTS Medico (
 	id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
 	crm VARCHAR(50) NOT NULL,
@@ -43,7 +44,7 @@ CREATE TABLE IF NOT EXISTS Medico (
     FOREIGN KEY (especializacao) REFERENCES especializacao(id)
 );
 
--- ------------ ESPECIALIZAÇÃO/MEDICO ------------
+# ------------ ESPECIALIZAÇÃO/MEDICO ------------
 CREATE TABLE IF NOT EXISTS especializacaoMedico (
 	id_medico INT,
     id_especializacao INT,
@@ -52,14 +53,20 @@ CREATE TABLE IF NOT EXISTS especializacaoMedico (
     FOREIGN KEY (id_especializacao) REFERENCES especializacao(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- ------------ CONVÊNIO ------------
+# ------------ CONVÊNIO ------------
 CREATE TABLE IF NOT EXISTS convenio (
 	id INT PRIMARY KEY AUTO_INCREMENT,
     cnpj VARCHAR(20) NOT NULL,
     tempoCarencia INT
 );
 
--- ------------ PACIENTE ------------
+INSERT INTO convenio(cnpj, tempoCarencia)
+VALUES ("00.000.000/0000-00", 5),
+       ("11.111.111/1111-11", 3),
+       ("22.222.222/2222-22", 4),
+       ("33.333.333/3333-33", 6);
+
+# ------------ PACIENTE ------------
 CREATE TABLE IF NOT EXISTS paciente(
 	id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(200) NOT NULL,
@@ -71,7 +78,7 @@ CREATE TABLE IF NOT EXISTS paciente(
     FOREIGN KEY (convenio) REFERENCES convenio(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- ------------ CONSULTA ------------
+# ------------ CONSULTA ------------
 CREATE TABLE IF NOT EXISTS consulta(
 	id INT PRIMARY KEY AUTO_INCREMENT,
     dataConsulta DATE NOT NULL,
@@ -86,14 +93,14 @@ CREATE TABLE IF NOT EXISTS consulta(
     FOREIGN KEY (medico) REFERENCES medico(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- ------------ MEDICAMENTO ------------
+# ------------ MEDICAMENTO ------------
 CREATE TABLE IF NOT EXISTS medicamento (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(150) NOT NULL,
     dosagem VARCHAR(100)
 );
 
--- ------------ RECEITA ------------
+# ------------ RECEITA ------------
 CREATE TABLE IF NOT EXISTS receita (
     id INT PRIMARY KEY AUTO_INCREMENT,
     quantidade INT NOT NULL,
@@ -103,7 +110,7 @@ CREATE TABLE IF NOT EXISTS receita (
     FOREIGN KEY (consulta) REFERENCES consulta(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- ------------ RECEITA/MEDICAMENTO  ------------
+# ------------ RECEITA/MEDICAMENTO  ------------
 CREATE TABLE IF NOT EXISTS receitaMedicamento (
     id_receita INT,
     id_medicamento INT,
@@ -111,5 +118,4 @@ CREATE TABLE IF NOT EXISTS receitaMedicamento (
     PRIMARY KEY (id_receita, id_medicamento),
     FOREIGN KEY (id_receita) REFERENCES receita(id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (id_medicamento) REFERENCES medicamento(id) ON DELETE CASCADE ON UPDATE CASCADE
-);  
-
+);
