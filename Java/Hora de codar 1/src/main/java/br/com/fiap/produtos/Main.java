@@ -21,6 +21,7 @@ public class Main {
                 break;
             case 14:
                 exercicio14(scan);
+                break;
             default:
                 System.out.println("Valor incorreto");
                 break;
@@ -79,12 +80,13 @@ public class Main {
             }
         }
         somaAritmetica /= 10;
-        System.out.println("\nA soma aritmética é: " + somaAritmetica);
+        System.out.println("\nA média aritmética é: " + somaAritmetica);
     }
     // EXERCÍCIO 14
     public static void exercicio14(Scanner scan){
         double soma = 0;
         double[] vetor = new double[6];
+        System.out.println("Digite as 6 notas do aluno:");
 
         for (int i=0;i<vetor.length;i++){
             double num = scan.nextDouble();
