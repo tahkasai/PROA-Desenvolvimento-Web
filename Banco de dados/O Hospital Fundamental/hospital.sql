@@ -1,146 +1,115 @@
-Create database if not exists Hospital;
-use Hospital;
+DROP DATABASE IF EXISTS Hospital;
+CREATE DATABASE Hospital;
+USE Hospital;
 
-# ------------ FORMAÇÃO ------------
-create table formacao (
-	id int primary key auto_increment unique,
-    nome varchar(100) not null
+-- ------------ FORMAÇÃO ------------
+CREATE TABLE IF NOT EXISTS formacao (
+	id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    nome VARCHAR(100) NOT NULL
 );
-describe formacao;
-insert into formacao(nome)
-values  ("generalista"), 
-		("especialista"), 
-        ("residente");
 
-# ------------ ESPECIALIZAÇÃO ------------
-create table especializacao(
-	id int primary key auto_increment unique,
-    nome varchar(150) not null
+INSERT INTO formacao(nome)
+VALUES ("generalista"), 
+       ("especialista"), 
+       ("residente");
+
+-- ------------ ESPECIALIZAÇÃO ------------
+CREATE TABLE IF NOT EXISTS especializacao(
+	id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    nome VARCHAR(150) NOT NULL
 );
-describe especializacao;
-insert into especializacao(nome)
-values ("pediatria"), 
-	   ("clínica geral"),
+
+-- DADOS ESSENCIAIS - 7 especialidades
+INSERT INTO especializacao(nome)
+VALUES ("pediatria"), 
+       ("clínica geral"),
        ("gastroenterologia"),
-       ("dermatologia");
+       ("dermatologia"),
+       ("cardiologia"), 
+       ("ortopedia"),
+       ("neurologia");
 
-# ------------ MÉDICO ------------
-create table Medico (
-	id int primary key auto_increment unique,
-	crm varchar(50) not null,
-    nome varchar(200) not null,
-    cpf varchar(20) not null,
-    rne varchar(20),
-    dataNasc date not null,
-    telefone varchar(20),
-    email varchar(100) not null,
-    especializacao int not null,
-    foreign key (especializacao) references especializacao(id) on delete cascade on update cascade
-);
-insert into medico(crm,nome,cpf,dataNasc,email,especializacao) 
-values ("CRM/SP 123456","Tainá Kasai Serafim","430.000.000-00",'2025-09-26',"tainakasai01@gmail.com",1);
-select * from medico;
-
-# ------------ ESPECIALIZAÇÃO/MEDICO ------------
-create table especializacaoMedico (
-	id_medico int,
-    id_especializacao int,
-    primary key (id_medico,id_especializacao),
-    foreign key (id_medico) references medico(id) on delete cascade on update cascade,
-    foreign key (id_especializacao) references especializacao(id) on delete cascade on update cascade
-);
-insert into especializacaoMedico (id_medico,id_especializacao) values (1,2),(1,4);
-
-select medico.nome,especializacao.nome from especializacaoMedico 
-inner join medico on medico.id = especializacaoMedico.id_medico
-inner join especializacao on especializacao.id = especializacaoMedico.id_especializacao;
-
-# ------------ CONVÊNIO ------------
-create table convenio (
-	id int primary key auto_increment,
-    cnpj varchar(20) not null,
-    tempoCarencia time
-);
-alter table convenio modify column tempoCarencia int;
-describe convenio;
-
-insert into convenio(cnpj,tempoCarencia)
-values ("00.000.000/0000-00",5),
-	   ("11.111.111/1111-11",3);
-
-select * from convenio;
-
-# ------------ PACIENTE ------------
-create table paciente(
-	id int primary key auto_increment,
-    nome varchar(200) not null,
-    cpf varchar(20) not null,
-    dataNasc date not null,
-    telefone varchar(20) not null,
-    email varchar(200) not null,
-    convenio int,
-    foreign key (convenio) references convenio(id) on delete cascade on update cascade
+-- ------------ MÉDICO ------------
+CREATE TABLE IF NOT EXISTS Medico (
+	id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+	crm VARCHAR(50) NOT NULL,
+    nome VARCHAR(200) NOT NULL,
+    cpf VARCHAR(20) NOT NULL,
+    rne VARCHAR(20),
+    dataNasc DATE NOT NULL,
+    telefone VARCHAR(20),
+    email VARCHAR(100) NOT NULL,
+    especializacao INT NOT NULL,
+    FOREIGN KEY (especializacao) REFERENCES especializacao(id)
 );
 
-insert into paciente (nome, cpf, dataNasc, telefone, email, convenio) 
-values ('Agatha Anjos', '123.456.789-00', '2006-01-28', '(11)99999-0001', 'agatha.com', 1),
-	   ('Wellington Augusto', '987.654.321-00', '2005-01-26', '(11)98888-0002', 'well.com', 2);
+-- ------------ ESPECIALIZAÇÃO/MEDICO ------------
+CREATE TABLE IF NOT EXISTS especializacaoMedico (
+	id_medico INT,
+    id_especializacao INT,
+    PRIMARY KEY (id_medico, id_especializacao),
+    FOREIGN KEY (id_medico) REFERENCES medico(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_especializacao) REFERENCES especializacao(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
 
-# ------------ CONSULTA ------------
-create table consulta(
-	id int primary key auto_increment,
-    dataConsulta date  not null,
-    hora time  not null,
-    valor varchar(5)  not null,
-    especialidade int not null,
-    paciente int not null,
-    medico int not null,
+-- ------------ CONVÊNIO ------------
+CREATE TABLE IF NOT EXISTS convenio (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    cnpj VARCHAR(20) NOT NULL,
+    tempoCarencia INT
+);
+
+-- ------------ PACIENTE ------------
+CREATE TABLE IF NOT EXISTS paciente(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(200) NOT NULL,
+    cpf VARCHAR(20) NOT NULL,
+    dataNasc DATE NOT NULL,
+    telefone VARCHAR(20) NOT NULL,
+    email VARCHAR(200) NOT NULL,
+    convenio INT,
+    FOREIGN KEY (convenio) REFERENCES convenio(id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+-- ------------ CONSULTA ------------
+CREATE TABLE IF NOT EXISTS consulta(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    dataConsulta DATE NOT NULL,
+    hora TIME NOT NULL,
+    valor VARCHAR(5) NOT NULL,
+    especialidade INT NOT NULL,
+    paciente INT NOT NULL,
+    medico INT NOT NULL,
     
-    foreign key (especialidade) references especializacao(id) on delete cascade on update cascade,
-    foreign key (paciente) references paciente(id) on delete cascade on update cascade,
-    foreign key (medico) references medico(id) on delete cascade on update cascade
+    FOREIGN KEY (especialidade) REFERENCES especializacao(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (paciente) REFERENCES paciente(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (medico) REFERENCES medico(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-insert into consulta (dataConsulta, hora, valor, especialidade, paciente, medico) 
-values ('2025-10-21', '09:30:00', '200', 1, 1, 1),
-	   ('2025-10-22', '14:00:00', '150', 2, 2, 2);
-
-# ------------ MEDICAMENTO ------------
-create table medicamento (
-    id int primary key auto_increment,
-    nome varchar(150) not null,
-    dosagem varchar(100)
+-- ------------ MEDICAMENTO ------------
+CREATE TABLE IF NOT EXISTS medicamento (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(150) NOT NULL,
+    dosagem VARCHAR(100)
 );
 
-insert into medicamento (nome, dosagem) 
-values ('Paracetamol', '500mg'),
-	   ('Ibuprofeno', '400mg');
-
-# ------------ RECEITA ------------
-create table receita (
-    id int primary key auto_increment,
-    quantidade int not null,
-    instrucao varchar(500),
-    consulta int,
+-- ------------ RECEITA ------------
+CREATE TABLE IF NOT EXISTS receita (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    quantidade INT NOT NULL,
+    instrucao VARCHAR(500),
+    consulta INT,
     
-    foreign key (consulta) references consulta(id) on delete cascade on update cascade
+    FOREIGN KEY (consulta) REFERENCES consulta(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-insert into receita (quantidade, instrucao, consulta) 
-values (10, 'Tomar 1 comprimido a cada 8 horas', 1),
-	   (5, 'Tomar 1 comprimido antes das refeições', 2);
-
-# ------------ RECEITA/MEDICAMENTO  ------------
-create table receitaMedicamento (
-    id_receita int,
-    id_medicamento int,
+-- ------------ RECEITA/MEDICAMENTO  ------------
+CREATE TABLE IF NOT EXISTS receitaMedicamento (
+    id_receita INT,
+    id_medicamento INT,
     
-    primary key (id_receita, id_medicamento),
-    foreign key (id_receita) references receita(id) on delete cascade on update cascade,
-    foreign key (id_medicamento) references medicamento(id) on delete cascade on update cascade
-);
-
-insert into receitaMedicamento (id_receita, id_medicamento) 
-values (1, 1),  
-	   (2, 2);  
+    PRIMARY KEY (id_receita, id_medicamento),
+    FOREIGN KEY (id_receita) REFERENCES receita(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_medicamento) REFERENCES medicamento(id) ON DELETE CASCADE ON UPDATE CASCADE
+);  
 
