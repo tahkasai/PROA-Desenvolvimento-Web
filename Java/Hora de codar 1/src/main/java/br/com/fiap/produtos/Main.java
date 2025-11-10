@@ -46,14 +46,13 @@ public class Main {
         System.out.print("Digite o 1° valor: ");
         double num1 = scan.nextDouble();
         double num2;
-
         do {
             System.out.print("Digite o 2° valor (diferente de zero): ");
             num2 = scan.nextDouble();
-            if (num2 == 0) {
-                System.out.println("Valor inválido! O divisor não pode ser zero.");
+            if (num2 <= 0) {
+                System.out.println("Valor inválido! O divisor não pode ser igual ou igual a zero.");
             }
-        } while (num2 == 0);
+        } while (num2 <= 0);
 
         double resultado = num1 / num2;
         System.out.printf("Resultado: %.2f%n", resultado);
