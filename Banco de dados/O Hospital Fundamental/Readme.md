@@ -12,4 +12,4 @@ Deseja-se ainda informatizar a receita do médico, de maneira que, no encerramen
 <img src="assets/image/image.png" alt="diagrama entidade relacionamento"/>
 
 ## Código em MySQL
-<a href='hospital.sql'>🔗hospital.sql</a>
+🔗<a href='hospital.sql'>hospital.sql</a>
