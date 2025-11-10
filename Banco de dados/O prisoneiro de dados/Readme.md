@@ -17,26 +17,9 @@ Crie scripts de povoamento das tabelas desenvolvidas na atividade anterior. Obse
 
 ## Resolução da atividade
 ```bash
-# ------------ ESPECIALIZAÇÃO ------------
-INSERT INTO especializacao(nome)
-VALUES ("cardiologia"), 
-       ("ortopedia"),
-       ("neurologia");
-
-# ------------ TIPO QUARTO ------------
-INSERT INTO tipo_quarto(descricao, valor_diaria)
-VALUES ("Apartamento", 350.00),
-       ("Quarto Duplo", 200.00),
-       ("Enfermaria", 100.00);
-
-# ------------ CONVÊNIO ------------
-INSERT INTO convenio(cnpj, tempoCarencia)
-VALUES ("22.222.222/2222-22", 4),
-       ("33.333.333/3333-33", 6);
-
-# ------------ MÉDICOS ------------
 INSERT INTO medico(crm, nome, cpf, dataNasc, email, especializacao) 
 VALUES 
+("CRM/SP 123456", "Dra. Tainá Kasai Serafim", "430.000.000-00", '1995-09-26', "tainakasai01@gmail.com", 1),
 ("CRM/SP 234567", "Dr. Carlos Silva", "111.222.333-44", '1975-03-15', "carlos.silva@hospital.com", 2),
 ("CRM/RJ 345678", "Dra. Maria Santos", "222.333.444-55", '1980-07-22', "maria.santos@hospital.com", 3),
 ("CRM/SP 456789", "Dr. João Oliveira", "333.444.555-66", '1978-11-30', "joao.oliveira@hospital.com", 4),
@@ -47,17 +30,18 @@ VALUES
 ("CRM/BA 901234", "Dra. Fernanda Rocha", "888.999.000-11", '1983-08-14', "fernanda.rocha@hospital.com", 2),
 ("CRM/SP 012345", "Dr. Lucas Martins", "999.000.111-22", '1979-02-20', "lucas.martins@hospital.com", 3);
 
-# ------------ ESPECIALIDADE/MÉDICO ------------
 INSERT INTO especializacaoMedico (id_medico, id_especializacao) 
 VALUES 
+(1, 2), (1, 4),  
 (2, 3), (2, 5),  
-(3, 1),         
+(3, 1),          
 (5, 2), (5, 7),  
 (7, 5);          
 
-# ------------ PACIENTES (15 pacientes) ------------
 INSERT INTO paciente (nome, cpf, dataNasc, telefone, email, convenio) 
 VALUES 
+('Agatha Anjos', '123.456.789-00', '2006-01-28', '(11)99999-0001', 'agatha@email.com', 1),
+('Wellington Augusto', '987.654.321-00', '2005-01-26', '(11)98888-0002', 'well@email.com', 2),
 ('João Pedro Silva', '321.654.987-11', '1990-05-12', '(11)91111-1111', 'joao.silva@email.com', 1),
 ('Maria Eduarda Costa', '654.321.987-22', '1985-08-20', '(11)92222-2222', 'maria.costa@email.com', 2),
 ('Carlos Alberto Souza', '789.456.123-33', '1978-12-15', '(11)93333-3333', 'carlos.souza@email.com', 3),
@@ -72,7 +56,6 @@ VALUES
 ('Camila Rodrigues', '486.159.357-22', '1991-02-17', '(11)95432-1098', 'camila.rodrigues@email.com', 1),
 ('Gabriel Martins', '753.951.852-33', '1989-12-09', '(11)96543-2109', 'gabriel.martins@email.com', 2);
 
-# ------------ CONSULTAS ------------
 INSERT INTO consulta (dataConsulta, hora, valor, especialidade, paciente, medico) 
 VALUES 
 ('2015-03-15', '10:00:00', '180', 2, 3, 2),
@@ -92,11 +75,14 @@ VALUES
 ('2021-09-14', '10:00:00', '200', 6, 14, 6),
 ('2021-12-03', '16:30:00', '220', 7, 15, 7),
 ('2022-01-01', '09:00:00', '250', 3, 8, 3),  
-('2020-10-10', '13:30:00', '200', 1, 2, 1); 
+('2020-10-10', '13:30:00', '200', 1, 2, 1),  -
+('2019-05-18', '11:00:00', '210', 2, 5, 2),
+('2020-11-22', '15:00:00', '200', 3, 7, 3);
 
-# ------------ MEDICAMENTOS ------------
 INSERT INTO medicamento (nome, dosagem) 
 VALUES 
+('Paracetamol', '500mg'),
+('Ibuprofeno', '400mg'),
 ('Amoxicilina', '500mg'),
 ('Dipirona', '1g'),
 ('Omeprazol', '20mg'),
@@ -106,9 +92,10 @@ VALUES
 ('Azitromicina', '500mg'),
 ('Prednisona', '20mg');
 
-# ------------ RECEITAS ------------
 INSERT INTO receita (quantidade, instrucao, consulta) 
 VALUES 
+(10, 'Tomar 1 comprimido a cada 8 horas', 1),
+(5, 'Tomar 1 comprimido antes das refeições', 2),
 (15, 'Tomar 1 comprimido a cada 12 horas', 3),
 (10, 'Tomar 1 comprimido a cada 6 horas em caso de dor', 4),
 (20, 'Tomar 1 comprimido pela manhã em jejum', 5),
@@ -128,32 +115,31 @@ VALUES
 (20, 'Tomar 1 comprimido antes do almoço', 19),
 (12, 'Tomar 1 comprimido a cada 8 horas', 20);
 
-# ------------ RECEITA/MEDICAMENTO ------------
 INSERT INTO receitaMedicamento (id_receita, id_medicamento) 
 VALUES 
-(11, 3), (11, 5), (11, 1),
-(12, 2), (12, 8),
-(13, 5), (13, 6),
-(14, 6), (14, 7),
-(15, 3), (15, 4), (15, 9),
-(16, 1), (16, 2),
-(17, 9), (17, 10),
-(18, 2), (18, 4),
-(19, 5), (19, 7), (19, 8),
-(20, 3), (20, 6),
-(21, 7), (22, 6), (23, 8), (24, 10), (25, 4), (26, 5);
+(1, 1), (1, 2), (1, 5),      
+(2, 3), (2, 4),              
+(3, 3), (3, 5), (3, 1),     
+(4, 2), (4, 8),             
+(5, 5), (5, 6),             
+(6, 6), (6, 7),              
+(7, 3), (7, 4), (7, 9),      
+(8, 1), (8, 2),             
+(9, 9), (9, 10),             
+(10, 2), (10, 4),            
+(11, 5), (11, 7), (11, 8),   
+(12, 3), (12, 6),            
+(13, 7), (14, 6), (15, 8), (16, 10), (17, 4), (18, 5), (19, 1), (20, 2);
 
-# ------------ QUARTOS (Ao menos 3 quartos) ------------
 INSERT INTO quarto(numero, tipo)
 VALUES 
-(101, 1),  -- Apartamento
-(102, 1),  -- Apartamento
-(201, 2),  -- Quarto Duplo
-(202, 2),  -- Quarto Duplo
-(301, 3),  -- Enfermaria
-(302, 3);  -- Enfermaria
+(101, 1),  
+(102, 1),  
+(201, 2),  
+(202, 2),  
+(301, 3), 
+(302, 3);  
 
-# ------------ ENFERMEIROS (10 profissionais) ------------
 INSERT INTO enfermeiro(nome, cpf, crn)
 VALUES
 ('Carla Mendes', '111.111.111-11', 'COREN-SP 123456'),
@@ -167,46 +153,24 @@ VALUES
 ('Fabiana Martins', '999.999.999-99', 'COREN-BA 901234'),
 ('Gustavo Pereira', '101.010.101-01', 'COREN-SP 012345');
 
-# ------------ INTERNAÇÕES ------------
 INSERT INTO internacao(data_entrada, data_prev_alta, data_saida, procedimento, quarto, paciente, medico)
 VALUES
 ('2016-05-10', '2016-05-17', '2016-05-16', 'Cirurgia de apendicite', 1, 3, 2),
 ('2017-08-15', '2017-08-22', '2017-08-21', 'Tratamento de pneumonia', 3, 1, 8),
 ('2018-02-20', '2018-03-05', '2018-03-04', 'Fratura de fêmur', 2, 5, 6),
-('2019-06-12', '2019-06-19', '2019-06-18', 'Cirurgia cardíaca', 1, 8, 5),
-('2020-03-08', '2020-03-15', '2020-03-14', 'Tratamento de gastrite aguda', 4, 3, 3), -- João Pedro 2ª internação
-('2021-07-22', '2021-07-29', '2021-07-28', 'Observação neurológica', 5, 1, 7),      -- Agatha 2ª internação
+('2019-06-12', '2019-06-19', '2019-06-18', 'Cirurgia cardíaca', 1, 9, 5),
+('2020-03-08', '2020-03-15', '2020-03-14', 'Tratamento de gastrite aguda', 4, 3, 3),
+('2021-07-22', '2021-07-29', '2021-07-28', 'Observação neurológica', 5, 1, 7),       
 ('2021-11-30', '2021-12-10', '2021-12-09', 'Tratamento dermatológico', 6, 10, 4);
 
-# ------------ INTERNAÇÃO/ENFERMEIRO ------------
 INSERT INTO internacaoEnfermeiro(id_internacao, id_enfermeiro)
 VALUES
-(1, 1), (1, 2), (1, 3),
-(2, 2), (2, 4), (2, 5),
-(3, 3), (3, 6),
-(4, 1), (4, 7), (4, 8),
-(5, 4), (5, 9),
-(6, 5), (6, 10),
-(7, 6), (7, 7), (7, 9);
+(1, 1), (1, 2), (1, 3),  
+(2, 2), (2, 4), (2, 5), 
+(3, 3), (3, 6),         
+(4, 1), (4, 7), (4, 8),  
+(5, 4), (5, 9),          
+(6, 5), (6, 10),     
+(7, 6), (7, 7), (7, 9); 
 
-# ------------ SELECT ------------
-SELECT m.nome AS Medico, e.nome AS Especialidade 
-FROM medico m 
-INNER JOIN especializacao e ON m.especializacao = e.id;
-
-
-SELECT c.dataConsulta, p.nome AS Paciente, m.nome AS Medico, e.nome AS Especialidade
-FROM consulta c
-INNER JOIN paciente p ON c.paciente = p.id
-INNER JOIN medico m ON c.medico = m.id
-INNER JOIN especializacao e ON c.especialidade = e.id
-ORDER BY c.dataConsulta;
-
-SELECT i.data_entrada, p.nome AS Paciente, m.nome AS Medico, q.numero AS Quarto, tq.descricao AS TipoQuarto
-FROM internacao i
-INNER JOIN paciente p ON i.paciente = p.id
-INNER JOIN medico m ON i.medico = m.id
-INNER JOIN quarto q ON i.quarto = q.id
-INNER JOIN tipo_quarto tq ON q.tipo = tq.id
-ORDER BY i.data_entrada;
 ```
