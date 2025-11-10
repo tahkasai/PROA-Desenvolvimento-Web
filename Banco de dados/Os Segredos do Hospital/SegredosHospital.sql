@@ -123,6 +123,7 @@ CREATE TABLE IF NOT EXISTS receitaMedicamento (
 # --------------------------------------------------------------------------------------
 # ATIVIDADE 02
 # --------------------------------------------------------------------------------------
+
 # ----------- TIPO QUARTO ----------- 
 CREATE TABLE IF NOT EXISTS tipo_quarto(
 	id INT PRIMARY KEY AUTO_INCREMENT,
