@@ -1,237 +1,189 @@
-Create database if not exists Hospital;
-use Hospital;
+DROP DATABASE IF EXISTS Hospital;
+CREATE DATABASE Hospital;
+USE Hospital;
+
+# --------------------------------------------------------------------------------------
+# ATIVIDADE 01
+# --------------------------------------------------------------------------------------
 
 # ------------ FORMAÇÃO ------------
-create table formacao (
-	id int primary key auto_increment unique,
-    nome varchar(100) not null
+CREATE TABLE IF NOT EXISTS formacao (
+	id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    nome VARCHAR(100) NOT NULL
 );
-describe formacao;
-insert into formacao(nome)
-values  ("generalista"), 
-		("especialista"), 
-        ("residente");
-select * from formacao;
+INSERT INTO formacao(nome)
+VALUES ("generalista"), 
+       ("especialista"), 
+       ("residente");
 
 # ------------ ESPECIALIZAÇÃO ------------
-create table especializacao(
-	id int primary key auto_increment unique,
-    nome varchar(150) not null
+CREATE TABLE IF NOT EXISTS especializacao(
+	id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    nome VARCHAR(150) NOT NULL
 );
-describe especializacao;
-insert into especializacao(nome)
-values ("pediatria"), 
-	   ("clínica geral"),
+INSERT INTO especializacao(nome)
+VALUES ("pediatria"), 
+       ("clínica geral"),
        ("gastroenterologia"),
-       ("dermatologia");
-select * from especializacao;
+       ("dermatologia"),
+       ("cardiologia"), 
+       ("ortopedia"),
+       ("neurologia");
 
 # ------------ MÉDICO ------------
-create table Medico (
-	id int primary key auto_increment unique,
-	crm varchar(50) not null,
-    nome varchar(200) not null,
-    cpf varchar(20) not null,
-    rne varchar(20),
-    dataNasc date not null,
-    telefone varchar(20),
-    email varchar(100) not null,
-    especializacao int not null,
-    foreign key (especializacao) references especializacao(id)
+CREATE TABLE IF NOT EXISTS Medico (
+	id INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+	crm VARCHAR(50) NOT NULL,
+    nome VARCHAR(200) NOT NULL,
+    cpf VARCHAR(20) NOT NULL,
+    rne VARCHAR(20),
+    dataNasc DATE NOT NULL,
+    telefone VARCHAR(20),
+    email VARCHAR(100) NOT NULL,
+    especializacao INT NOT NULL,
+    FOREIGN KEY (especializacao) REFERENCES especializacao(id)
 );
-insert into medico(crm,nome,cpf,dataNasc,email,especializacao) 
-values ("CRM/SP 123456","Tainá Kasai Serafim","430.000.000-00",'2025-09-26',"tainakasai01@gmail.com",1);
-select * from medico;
 
 # ------------ ESPECIALIZAÇÃO/MEDICO ------------
-create table especializacaoMedico (
-	id_medico int,
-    id_especializacao int,
-    primary key (id_medico,id_especializacao),
-    foreign key (id_medico) references medico(id) on delete cascade on update cascade,
-    foreign key (id_especializacao) references especializacao(id) on delete cascade on update cascade
+CREATE TABLE IF NOT EXISTS especializacaoMedico (
+	id_medico INT,
+    id_especializacao INT,
+    PRIMARY KEY (id_medico, id_especializacao),
+    FOREIGN KEY (id_medico) REFERENCES medico(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_especializacao) REFERENCES especializacao(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
-insert into especializacaoMedico (id_medico,id_especializacao) values (1,2),(1,4);
-
-select medico.nome,especializacao.nome from especializacaoMedico 
-inner join medico on medico.id = especializacaoMedico.id_medico
-inner join especializacao on especializacao.id = especializacaoMedico.id_especializacao;
 
 # ------------ CONVÊNIO ------------
-create table convenio (
-	id int primary key auto_increment,
-    cnpj varchar(20) not null,
-    tempoCarencia time
+CREATE TABLE IF NOT EXISTS convenio (
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    cnpj VARCHAR(20) NOT NULL,
+    tempoCarencia INT
 );
-alter table convenio modify column tempoCarencia int;
-describe convenio;
 
-insert into convenio(cnpj,tempoCarencia)
-values ("00.000.000/0000-00",5),
-	   ("11.111.111/1111-11",3);
-
-select * from convenio;
+INSERT INTO convenio(cnpj, tempoCarencia)
+VALUES ("00.000.000/0000-00", 5),
+       ("11.111.111/1111-11", 3),
+       ("22.222.222/2222-22", 4),
+       ("33.333.333/3333-33", 6);
 
 # ------------ PACIENTE ------------
-create table paciente(
-	id int primary key auto_increment,
-    nome varchar(200) not null,
-    cpf varchar(20) not null,
-    dataNasc date not null,
-    telefone varchar(20) not null,
-    email varchar(200) not null,
-    convenio int,
-    foreign key (convenio) references convenio(id) on delete cascade on update cascade
+CREATE TABLE IF NOT EXISTS paciente(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(200) NOT NULL,
+    cpf VARCHAR(20) NOT NULL,
+    dataNasc DATE NOT NULL,
+    telefone VARCHAR(20) NOT NULL,
+    email VARCHAR(200) NOT NULL,
+    convenio INT,
+    FOREIGN KEY (convenio) REFERENCES convenio(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-insert into paciente (nome, cpf, dataNasc, telefone, email, convenio) 
-values ('Agatha Anjos', '123.456.789-00', '2006-01-28', '(11)99999-0001', 'agatha.com', 1),
-	   ('Wellington Augusto', '987.654.321-00', '2005-01-26', '(11)98888-0002', 'well.com', 2);
-
-select * from paciente;
 
 # ------------ CONSULTA ------------
-create table consulta(
-	id int primary key auto_increment,
-    dataConsulta date  not null,
-    hora time  not null,
-    valor varchar(5)  not null,
-    especialidade int not null,
-    paciente int not null,
-    medico int not null,
+CREATE TABLE IF NOT EXISTS consulta(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    dataConsulta DATE NOT NULL,
+    hora TIME NOT NULL,
+    valor VARCHAR(5) NOT NULL,
+    especialidade INT NOT NULL,
+    paciente INT NOT NULL,
+    medico INT NOT NULL,
     
-    foreign key (especialidade) references especializacao(id) on delete cascade on update cascade,
-    foreign key (paciente) references paciente(id) on delete cascade on update cascade,
-    foreign key (medico) references medico(id) on delete cascade on update cascade
+    FOREIGN KEY (especialidade) REFERENCES especializacao(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (paciente) REFERENCES paciente(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (medico) REFERENCES medico(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-insert into consulta (dataConsulta, hora, valor, especialidade, paciente, medico) 
-values ('2025-10-21', '09:30:00', '200', 1, 1, 1),
-	   ('2025-10-22', '14:00:00', '150', 2, 2, 1);
-       
-select * from consulta;
 
 # ------------ MEDICAMENTO ------------
-create table medicamento (
-    id int primary key auto_increment,
-    nome varchar(150) not null,
-    dosagem varchar(100)
+CREATE TABLE IF NOT EXISTS medicamento (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(150) NOT NULL,
+    dosagem VARCHAR(100)
 );
-
-insert into medicamento (nome, dosagem) 
-values ('Paracetamol', '500mg'),
-	   ('Ibuprofeno', '400mg');
-       
-select * from medicamento;
 
 # ------------ RECEITA ------------
-create table receita (
-    id int primary key auto_increment,
-    quantidade int not null,
-    instrucao varchar(500),
-    consulta int,
+CREATE TABLE IF NOT EXISTS receita (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    quantidade INT NOT NULL,
+    instrucao VARCHAR(500),
+    consulta INT,
     
-    foreign key (consulta) references consulta(id) on delete cascade on update cascade
+    FOREIGN KEY (consulta) REFERENCES consulta(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-insert into receita (quantidade, instrucao, consulta) 
-values (10, 'Tomar 1 comprimido a cada 8 horas', 7),
-	   (5, 'Tomar 1 comprimido antes das refeições', 8);
-
-select * from receita;
 
 # ------------ RECEITA/MEDICAMENTO  ------------
-create table receitaMedicamento (
-    id_receita int,
-    id_medicamento int,
+CREATE TABLE IF NOT EXISTS receitaMedicamento (
+    id_receita INT,
+    id_medicamento INT,
     
-    primary key (id_receita, id_medicamento),
-    foreign key (id_receita) references receita(id) on delete cascade on update cascade,
-    foreign key (id_medicamento) references medicamento(id) on delete cascade on update cascade
+    PRIMARY KEY (id_receita, id_medicamento),
+    FOREIGN KEY (id_receita) REFERENCES receita(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (id_medicamento) REFERENCES medicamento(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
-
-insert into receitaMedicamento (id_receita, id_medicamento) 
-values (9, 1),  
-	   (10, 2);  
-       
-select * from receitaMedicamento;
 
 # --------------------------------------------------------------------------------------
 # ATIVIDADE 02
 # --------------------------------------------------------------------------------------
 
 # ----------- TIPO QUARTO ----------- 
-create table if not exists tipo_quarto(
-	id int primary key auto_increment,
-    descricao varchar(200) not null,
-    valor_diaria double not null
+CREATE TABLE IF NOT EXISTS tipo_quarto(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    descricao VARCHAR(200) NOT NULL,
+    valor_diaria DOUBLE NOT NULL
 );
 
-# ----------- QUARTO ----------- 
-create table if not exists quarto(
-	id int primary key auto_increment,
-    numero int not null,
-    tipo int,
-    
-    foreign key (tipo) references tipo_quarto(id)
-);
-
-# ----------- INTERNAÇÃO ----------- 
-create table if not exists internacao(
-	id int primary key auto_increment,
-    data_entrada date not null,
-    data_prev_alta date not null,
-    data_saida date not null,
-    procedimento varchar (200),
-    quarto int not null,
-    paciente int not null,
-    medico int not null,
-    
-    foreign key (quarto) references quarto(id),
-    foreign key (paciente) references paciente(id),
-    foreign key (medico) references medico(id)
-);
-
-# ----------- ENFERMEIRO ----------- 
-create table enfermeiro(
-	id int primary key auto_increment,
-    nome varchar(200) not null,
-    cpf varchar(20) not null,
-    crn varchar(20) not null
-);
-
-# ----------- INTERNACAO/ENFERMEIRO ----------- 
-create table internacaoEnfermeiro(
-	id_internacao int not null,
-    id_enfermeiro int not null,
-    
-    foreign key (id_internacao) references internacao(id),
-    foreign key (id_enfermeiro) references enfermeiro(id)    
-);
-
-# --------------------------------------------------------------------------------------
-# ATIVIDADE 03
-# --------------------------------------------------------------------------------------
-# ------------ ESPECIALIZAÇÃO ------------
-INSERT INTO especializacao(nome)
-VALUES ("cardiologia"), 
-       ("ortopedia"),
-       ("neurologia");
-
-# ------------ TIPO QUARTO ------------
 INSERT INTO tipo_quarto(descricao, valor_diaria)
 VALUES ("Apartamento", 350.00),
        ("Quarto Duplo", 200.00),
        ("Enfermaria", 100.00);
 
-# ------------ CONVÊNIO ------------
-INSERT INTO convenio(cnpj, tempoCarencia)
-VALUES ("22.222.222/2222-22", 4),
-       ("33.333.333/3333-33", 6);
+# ----------- QUARTO ----------- 
+CREATE TABLE IF NOT EXISTS quarto(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    numero INT NOT NULL,
+    tipo INT,
+    
+    FOREIGN KEY (tipo) REFERENCES tipo_quarto(id)
+);
 
-# ------------ MÉDICOS ------------
+# ----------- INTERNAÇÃO ----------- 
+CREATE TABLE IF NOT EXISTS internacao(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    data_entrada DATE NOT NULL,
+    data_prev_alta DATE NOT NULL,
+    data_saida DATE NOT NULL,
+    procedimento VARCHAR(200),
+    quarto INT NOT NULL,
+    paciente INT NOT NULL,
+    medico INT NOT NULL,
+    
+    FOREIGN KEY (quarto) REFERENCES quarto(id),
+    FOREIGN KEY (paciente) REFERENCES paciente(id),
+    FOREIGN KEY (medico) REFERENCES medico(id)
+);
+
+# ----------- ENFERMEIRO ----------- 
+CREATE TABLE IF NOT EXISTS enfermeiro(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(200) NOT NULL,
+    cpf VARCHAR(20) NOT NULL,
+    crn VARCHAR(20) NOT NULL
+);
+
+# ----------- INTERNACAO/ENFERMEIRO ----------- 
+CREATE TABLE IF NOT EXISTS internacaoEnfermeiro(
+	id_internacao INT NOT NULL,
+    id_enfermeiro INT NOT NULL,
+    
+    FOREIGN KEY (id_internacao) REFERENCES internacao(id),
+    FOREIGN KEY (id_enfermeiro) REFERENCES enfermeiro(id)    
+);
+
+# --------------------------------------------------------------------------------------
+# ATIVIDADE 03
+# --------------------------------------------------------------------------------------
 INSERT INTO medico(crm, nome, cpf, dataNasc, email, especializacao) 
 VALUES 
+("CRM/SP 123456", "Dra. Tainá Kasai Serafim", "430.000.000-00", '1995-09-26', "tainakasai01@gmail.com", 1),
 ("CRM/SP 234567", "Dr. Carlos Silva", "111.222.333-44", '1975-03-15', "carlos.silva@hospital.com", 2),
 ("CRM/RJ 345678", "Dra. Maria Santos", "222.333.444-55", '1980-07-22', "maria.santos@hospital.com", 3),
 ("CRM/SP 456789", "Dr. João Oliveira", "333.444.555-66", '1978-11-30', "joao.oliveira@hospital.com", 4),
@@ -242,17 +194,18 @@ VALUES
 ("CRM/BA 901234", "Dra. Fernanda Rocha", "888.999.000-11", '1983-08-14', "fernanda.rocha@hospital.com", 2),
 ("CRM/SP 012345", "Dr. Lucas Martins", "999.000.111-22", '1979-02-20', "lucas.martins@hospital.com", 3);
 
-# ------------ ESPECIALIDADE/MÉDICO ------------
 INSERT INTO especializacaoMedico (id_medico, id_especializacao) 
 VALUES 
+(1, 2), (1, 4),  
 (2, 3), (2, 5),  
-(3, 1),         
+(3, 1),          
 (5, 2), (5, 7),  
 (7, 5);          
 
-# ------------ PACIENTES (15 pacientes) ------------
 INSERT INTO paciente (nome, cpf, dataNasc, telefone, email, convenio) 
 VALUES 
+('Agatha Anjos', '123.456.789-00', '2006-01-28', '(11)99999-0001', 'agatha@email.com', 1),
+('Wellington Augusto', '987.654.321-00', '2005-01-26', '(11)98888-0002', 'well@email.com', 2),
 ('João Pedro Silva', '321.654.987-11', '1990-05-12', '(11)91111-1111', 'joao.silva@email.com', 1),
 ('Maria Eduarda Costa', '654.321.987-22', '1985-08-20', '(11)92222-2222', 'maria.costa@email.com', 2),
 ('Carlos Alberto Souza', '789.456.123-33', '1978-12-15', '(11)93333-3333', 'carlos.souza@email.com', 3),
@@ -267,7 +220,6 @@ VALUES
 ('Camila Rodrigues', '486.159.357-22', '1991-02-17', '(11)95432-1098', 'camila.rodrigues@email.com', 1),
 ('Gabriel Martins', '753.951.852-33', '1989-12-09', '(11)96543-2109', 'gabriel.martins@email.com', 2);
 
-# ------------ CONSULTAS ------------
 INSERT INTO consulta (dataConsulta, hora, valor, especialidade, paciente, medico) 
 VALUES 
 ('2015-03-15', '10:00:00', '180', 2, 3, 2),
@@ -287,11 +239,14 @@ VALUES
 ('2021-09-14', '10:00:00', '200', 6, 14, 6),
 ('2021-12-03', '16:30:00', '220', 7, 15, 7),
 ('2022-01-01', '09:00:00', '250', 3, 8, 3),  
-('2020-10-10', '13:30:00', '200', 1, 2, 1); 
+('2020-10-10', '13:30:00', '200', 1, 2, 1),  
+('2019-05-18', '11:00:00', '210', 2, 5, 2),
+('2020-11-22', '15:00:00', '200', 3, 7, 3);
 
-# ------------ MEDICAMENTOS ------------
 INSERT INTO medicamento (nome, dosagem) 
 VALUES 
+('Paracetamol', '500mg'),
+('Ibuprofeno', '400mg'),
 ('Amoxicilina', '500mg'),
 ('Dipirona', '1g'),
 ('Omeprazol', '20mg'),
@@ -301,9 +256,10 @@ VALUES
 ('Azitromicina', '500mg'),
 ('Prednisona', '20mg');
 
-# ------------ RECEITAS ------------
 INSERT INTO receita (quantidade, instrucao, consulta) 
 VALUES 
+(10, 'Tomar 1 comprimido a cada 8 horas', 1),
+(5, 'Tomar 1 comprimido antes das refeições', 2),
 (15, 'Tomar 1 comprimido a cada 12 horas', 3),
 (10, 'Tomar 1 comprimido a cada 6 horas em caso de dor', 4),
 (20, 'Tomar 1 comprimido pela manhã em jejum', 5),
@@ -323,32 +279,31 @@ VALUES
 (20, 'Tomar 1 comprimido antes do almoço', 19),
 (12, 'Tomar 1 comprimido a cada 8 horas', 20);
 
-# ------------ RECEITA/MEDICAMENTO ------------
 INSERT INTO receitaMedicamento (id_receita, id_medicamento) 
 VALUES 
-(11, 3), (11, 5), (11, 1),
-(12, 2), (12, 8),
-(13, 5), (13, 6),
-(14, 6), (14, 7),
-(15, 3), (15, 4), (15, 9),
-(16, 1), (16, 2),
-(17, 9), (17, 10),
-(18, 2), (18, 4),
-(19, 5), (19, 7), (19, 8),
-(20, 3), (20, 6),
-(21, 7), (22, 6), (23, 8), (24, 10), (25, 4), (26, 5);
+(1, 1), (1, 2), (1, 5),      
+(2, 3), (2, 4),              
+(3, 3), (3, 5), (3, 1),     
+(4, 2), (4, 8),             
+(5, 5), (5, 6),             
+(6, 6), (6, 7),              
+(7, 3), (7, 4), (7, 9),      
+(8, 1), (8, 2),             
+(9, 9), (9, 10),             
+(10, 2), (10, 4),            
+(11, 5), (11, 7), (11, 8),   
+(12, 3), (12, 6),            
+(13, 7), (14, 6), (15, 8), (16, 10), (17, 4), (18, 5), (19, 1), (20, 2);
 
-# ------------ QUARTOS (Ao menos 3 quartos) ------------
 INSERT INTO quarto(numero, tipo)
 VALUES 
-(101, 1),  -- Apartamento
-(102, 1),  -- Apartamento
-(201, 2),  -- Quarto Duplo
-(202, 2),  -- Quarto Duplo
-(301, 3),  -- Enfermaria
-(302, 3);  -- Enfermaria
+(101, 1),  
+(102, 1),  
+(201, 2),  
+(202, 2),  
+(301, 3), 
+(302, 3);  
 
-# ------------ ENFERMEIROS (10 profissionais) ------------
 INSERT INTO enfermeiro(nome, cpf, crn)
 VALUES
 ('Carla Mendes', '111.111.111-11', 'COREN-SP 123456'),
@@ -362,45 +317,49 @@ VALUES
 ('Fabiana Martins', '999.999.999-99', 'COREN-BA 901234'),
 ('Gustavo Pereira', '101.010.101-01', 'COREN-SP 012345');
 
-# ------------ INTERNAÇÕES ------------
 INSERT INTO internacao(data_entrada, data_prev_alta, data_saida, procedimento, quarto, paciente, medico)
 VALUES
 ('2016-05-10', '2016-05-17', '2016-05-16', 'Cirurgia de apendicite', 1, 3, 2),
 ('2017-08-15', '2017-08-22', '2017-08-21', 'Tratamento de pneumonia', 3, 1, 8),
 ('2018-02-20', '2018-03-05', '2018-03-04', 'Fratura de fêmur', 2, 5, 6),
-('2019-06-12', '2019-06-19', '2019-06-18', 'Cirurgia cardíaca', 1, 8, 5),
-('2020-03-08', '2020-03-15', '2020-03-14', 'Tratamento de gastrite aguda', 4, 3, 3), -- João Pedro 2ª internação
-('2021-07-22', '2021-07-29', '2021-07-28', 'Observação neurológica', 5, 1, 7),      -- Agatha 2ª internação
+('2019-06-12', '2019-06-19', '2019-06-18', 'Cirurgia cardíaca', 1, 9, 5),
+('2020-03-08', '2020-03-15', '2020-03-14', 'Tratamento de gastrite aguda', 4, 3, 3),
+('2021-07-22', '2021-07-29', '2021-07-28', 'Observação neurológica', 5, 1, 7),       
 ('2021-11-30', '2021-12-10', '2021-12-09', 'Tratamento dermatológico', 6, 10, 4);
 
-# ------------ INTERNAÇÃO/ENFERMEIRO ------------
 INSERT INTO internacaoEnfermeiro(id_internacao, id_enfermeiro)
 VALUES
-(1, 1), (1, 2), (1, 3),
-(2, 2), (2, 4), (2, 5),
-(3, 3), (3, 6),
-(4, 1), (4, 7), (4, 8),
-(5, 4), (5, 9),
-(6, 5), (6, 10),
-(7, 6), (7, 7), (7, 9);
+(1, 1), (1, 2), (1, 3),  
+(2, 2), (2, 4), (2, 5), 
+(3, 3), (3, 6),         
+(4, 1), (4, 7), (4, 8),  
+(5, 4), (5, 9),          
+(6, 5), (6, 10),     
+(7, 6), (7, 7), (7, 9); 
 
-# ------------ SELECT ------------
-SELECT m.nome AS Medico, e.nome AS Especialidade 
-FROM medico m 
-INNER JOIN especializacao e ON m.especializacao = e.id;
+# --------------------------------------------------------------------------------------
+# ATIVIDADE 04
+# --------------------------------------------------------------------------------------
+ALTER TABLE Medico
+ADD COLUMN emAtividade boolean;
+Desc Medico;
 
+update Medico set emAtividade = true where id = 1;
+update Medico set emAtividade = true where id = 2;
+update Medico set emAtividade = false where id = 3;
+update Medico set emAtividade = true where id = 4;
+update Medico set emAtividade = true where id = 5;
+update Medico set emAtividade = false where id = 6;
+update Medico set emAtividade = true where id = 7;
+update Medico set emAtividade = false where id = 8;
+update Medico set emAtividade = true where id = 9;
+update Medico set emAtividade = true where id = 10;
 
-SELECT c.dataConsulta, p.nome AS Paciente, m.nome AS Medico, e.nome AS Especialidade
-FROM consulta c
-INNER JOIN paciente p ON c.paciente = p.id
-INNER JOIN medico m ON c.medico = m.id
-INNER JOIN especializacao e ON c.especialidade = e.id
-ORDER BY c.dataConsulta;
-
-SELECT i.data_entrada, p.nome AS Paciente, m.nome AS Medico, q.numero AS Quarto, tq.descricao AS TipoQuarto
-FROM internacao i
-INNER JOIN paciente p ON i.paciente = p.id
-INNER JOIN medico m ON i.medico = m.id
-INNER JOIN quarto q ON i.quarto = q.id
-INNER JOIN tipo_quarto tq ON q.tipo = tq.id
-ORDER BY i.data_entrada;
+SELECT 
+    nome,
+    CASE # é basicamente um if
+        WHEN emAtividade = 1 THEN 'Ativo'
+        WHEN emAtividade = 0 THEN 'Inativo'
+        ELSE 'Desconhecido' #é um default
+    END AS status  # end é a finalização, e o as é pra renomear o emAtividade
+FROM Medico;
