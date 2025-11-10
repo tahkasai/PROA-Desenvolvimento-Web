@@ -15,54 +15,59 @@ A internação, obviamente, é vinculada a um paciente – que pode se internar 
 <img src='assets/image/image.png' alt='diagrama de entidade e relacionamento'>
 
 ## Resolução
-```
+```bash
 # ----------- TIPO QUARTO ----------- 
-create table if not exists tipo_quarto(
-	id int primary key auto_increment,
-    descricao varchar(200) not null,
-    valor_diaria double not null
+CREATE TABLE IF NOT EXISTS tipo_quarto(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    descricao VARCHAR(200) NOT NULL,
+    valor_diaria DOUBLE NOT NULL
 );
 
+INSERT INTO tipo_quarto(descricao, valor_diaria)
+VALUES ("Apartamento", 350.00),
+       ("Quarto Duplo", 200.00),
+       ("Enfermaria", 100.00);
+
 # ----------- QUARTO ----------- 
-create table if not exists quarto(
-	id int primary key auto_increment,
-    numero int not null,
-    tipo int,
+CREATE TABLE IF NOT EXISTS quarto(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    numero INT NOT NULL,
+    tipo INT,
     
-    foreign key (tipo) references tipo_quarto(id) on delete cascade on update cascade
+    FOREIGN KEY (tipo) REFERENCES tipo_quarto(id)
 );
 
 # ----------- INTERNAÇÃO ----------- 
-create table if not exists internacao(
-	id int primary key auto_increment,
-    data_entrada date not null,
-    data_prev_alta date not null,
-    data_saida date not null,
-    procedimento varchar (200),
-    quarto int not null,
-    paciente int not null,
-    medico int not null,
+CREATE TABLE IF NOT EXISTS internacao(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    data_entrada DATE NOT NULL,
+    data_prev_alta DATE NOT NULL,
+    data_saida DATE NOT NULL,
+    procedimento VARCHAR(200),
+    quarto INT NOT NULL,
+    paciente INT NOT NULL,
+    medico INT NOT NULL,
     
-    foreign key (quarto) references quarto(id) on delete cascade on update cascade,
-    foreign key (paciente) references paciente(id) on delete cascade on update cascade,
-    foreign key (medico) references medico(id) on delete cascade on update cascade
+    FOREIGN KEY (quarto) REFERENCES quarto(id),
+    FOREIGN KEY (paciente) REFERENCES paciente(id),
+    FOREIGN KEY (medico) REFERENCES medico(id)
 );
 
 # ----------- ENFERMEIRO ----------- 
-create table enfermeiro(
-	id int primary key auto_increment,
-    nome varchar(200) not null,
-    cpf varchar(20) not null,
-    crn varchar(20) not null
+CREATE TABLE IF NOT EXISTS enfermeiro(
+	id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(200) NOT NULL,
+    cpf VARCHAR(20) NOT NULL,
+    crn VARCHAR(20) NOT NULL
 );
 
 # ----------- INTERNACAO/ENFERMEIRO ----------- 
-create table internacaoEnfermeiro(
-	id_internacao int not null,
-    id_enfermeiro int not null,
+CREATE TABLE IF NOT EXISTS internacaoEnfermeiro(
+	id_internacao INT NOT NULL,
+    id_enfermeiro INT NOT NULL,
     
-    foreign key (id_internacao) references internacao(id) on delete cascade on update cascade,
-    foreign key (id_enfermeiro) references enfermeiro(id) on delete cascade on update cascade    
+    FOREIGN KEY (id_internacao) REFERENCES internacao(id),
+    FOREIGN KEY (id_enfermeiro) REFERENCES enfermeiro(id)    
 );
 ```
 ## Código completo
