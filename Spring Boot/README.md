@@ -1,14 +1,28 @@
 # Spring Boot
-Spring Boot é um framework Java que simplifica a criação de aplicações, eliminando a necessidade de configurações complexas. Ele permite que as aplicações sejam executadas diretamente com servidores web embarcados, como o Tomcat, e facilita o gerenciamento de dependências através de "starters". O objetivo é agilizar o desenvolvimento, aumentando a produtividade, e já incluir recursos prontos para produção, como métricas e health checks. 
+O **Spring Boot** é um framework que facilita muito a criação de aplicações em Java. Antes dele, desenvolver usando Spring exigia muitas configurações manuais e arquivos complicados. O Spring Boot veio para simplificar isso.
 
-## Principais características
-* Simplicidade: Elimina a necessidade de configurações manuais e extensas em arquivos XML.
-* Configuração automática: O framework configura automaticamente o Spring e bibliotecas de terceiros quando possível.
-* Servidor embarcado: Permite empacotar a aplicação em um arquivo JAR executável, que pode conter um servidor web embarcado (como Tomcat, Jetty ou Undertow).
-* "Starters": Dependências "opinioned" que simplificam a configuração do build, permitindo que o desenvolvedor foque na lógica da aplicação.
-* Produtividade: Reduz o tempo de desenvolvimento, pois automatiza tarefas repetitivas e configuradas previamente.
-* Recursos para produção: Inclui funcionalidades como métricas, health checks e configuração externa pronta para uso.
-* Aplicações stand-alone: Possibilita a criação de aplicações que rodam de forma independente, sem a necessidade de um servidor externo. 
+Com ele, é possível criar uma aplicação completa com muito menos esforço.
+
+### Em resumo, o Spring Boot:
+* evita configurações manuais  
+* permite rodar a aplicação sem instalar servidor externo  
+* traz recursos prontos para APIs e sistemas web  
+* acelera o desenvolvimento  
+* organiza dependências automaticamente  
+
+##  Principais características do Spring Boot
+1. **Simplicidade**: Antes era necessário configurar quase tudo na mão, com o Spring Boot, isso já vem pronto.
+2. **Configuração automática**: O framework identifica o que você está usando e se ajusta sozinho.
+3. **Servidor embutido**: Você não precisa instalar Tomcat ou outro servidor, a aplicação roda direto com um clique.
+4. **Starters (pacotes prontos)**: São conjuntos de dependências que facilitam adicionar funcionalidades sem preocupações com versões.
+Exemplo: spring-boot-starter-web
+já traz tudo o que é necessário para criar APIs
+5. **Produtividade**: Menos tempo configurando, mais tempo desenvolvendo.
+6. **Recursos prontos para produção**: Como:
+   * monitoramento
+   * saúde da aplicação
+   * configurações externas
+7. **Aplicações independentes**: Você gera um arquivo `.jar` e executa como um programa normal.
 
 ## Como o Spring Boot funciona
 * Ponto de entrada: A aplicação inicia a partir de uma classe principal com a anotação `@SpringBootApplication`.
