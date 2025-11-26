@@ -26,12 +26,12 @@ já traz tudo o que é necessário para criar APIs
 
 ## Como o Spring Boot funciona
 * Ponto de entrada: A aplicação inicia a partir de uma classe principal com a anotação `@SpringBootApplication`.
-* Anotações: O framework utiliza anotações para entender a função de cada classe, como `@Component`, `@Service` ou `@Repository`.
+* Anotações: O framework utiliza anotações para entender a função de cada classe, como `@Component`(Componente geral), `@Service`(Regras de Negócio) ou `@Repository`(Acesso ao banco de dados).
 * Gerenciamento de dependências: Arquivos como `pom.xml` (para Maven) ou `build.gradle` (para Gradle) gerenciam as dependências. A adição do "parent" do Spring Boot ao `pom.xml`, por exemplo, já disponibiliza as dependências do projeto com versões compatíveis.
 * Configuração: Arquivos como application.properties são usados para armazenar configurações, como credenciais de banco de dados. 
 
 ## Como Baixar
-Para criar um arquivo spring boot de forma rápida, baixe o aquivo aqui:
+A forma mais rápida é pelo
 <a href="https://start.spring.io">Spring Initializr</a>
 
 ### Sugestão de dependências
@@ -62,7 +62,7 @@ Exemplo de URL: `jdbc:sqlserver://localhost:1433;databaseName=sua_base`
 Fornece integração com o JPA e Hibernate, permitindo manipulação de dados de forma simples por meio de repositórios.
 
 Recursos:
-- Mapeamento de entidades com `@Entity`
+- Mapeamento de entidades com `@Entity`(Entidades)
 - Criação automática de tabelas (com configurações apropriadas)
 - `JpaRepository` para CRUD sem SQL manual
 
@@ -78,13 +78,18 @@ Biblioteca para eliminar código repetitivo através de anotações como:
 
 Exemplo para `application.properties`:
 
-```properties
+``` properties
 spring.datasource.url=jdbc:sqlserver://localhost:1433;databaseName=nome_do_banco
 spring.datasource.username=seu_usuario
 spring.datasource.password=sua_senha
 spring.datasource.driver-class-name=com.microsoft.sqlserver.jdbc.SQLServerDriver
-
 spring.jpa.hibernate.ddl-auto=update
 spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.format_sql=true```
+spring.jpa.properties.hibernate.format_sql=true
+```
 
+
+O que significam as configurações principais:
+* **ddl-auto=update**: Cria e atualiza tabelas automaticamente
+* **show-sql=true**: Mostra no console os comandos SQL executados
+* **format-sql=true**:	Deixa o SQL organizado e legível
